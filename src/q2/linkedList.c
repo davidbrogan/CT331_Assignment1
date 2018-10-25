@@ -9,8 +9,7 @@ typedef struct listElementStruct{
   struct listElementStruct* next;
 } listElement;
 
-//Creates a new linked list element with given content of size
-//Returns a pointer to the element
+
 listElement* createEl(char* data, size_t size){
   listElement* e = malloc(sizeof(listElement));
   if(e == NULL){
@@ -59,3 +58,48 @@ void deleteAfter(listElement* after){
   free(delete->data);
   free(delete);
 }
+    int length(listElement* list) {
+        int len = 0;
+        listElement* curr = list;
+        while (curr != NULL) {
+            len++;
+            curr = curr->next;
+        }
+        return len;
+    }
+    // Push a new element onto the head of a list.
+    void push(listElement** list, char* data, size_t size) {
+        listElement* newEl = createEl(data, size);
+        newEl->next = *list;
+        *list = newEl;
+    }
+    
+    
+    // Pop an element from the head of a list.
+    listElement* pop(listElement** list) {
+        if (length(*list) == 0) {
+            return *list;
+        } listElement* head = *list;
+        
+        listElement* poppedElement = createEl(head->data, sizeof(*(head->data)));
+        *list = head->next;
+        
+        return head;
+    }
+    //enqueues
+    void enqueue(listElement** list, char*data, size_t size) {
+        listElement* newEl = createEl(data, size);
+        newEl->next = *list;
+        *list = newEl;
+    }
+    // Dequeue an element from the tail of the list.
+    listElement* dequeue(listElement* list) {
+        listElement* curr = list;
+        while ((curr->next)->next != NULL)
+        {
+            curr = curr->next;
+        }
+        listElement* temp = curr->next;
+        curr->next = NULL;
+        return temp;
+    }
